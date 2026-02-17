@@ -18,8 +18,6 @@ jobs:
         with:
           node-version: '18'
 
-      # Using 'npm install' rather than 'npm ci' to allow the runner
-      # to resolve dependency peer-conflicts that cause Exit Code 2.
       - name: Install Dependencies
         run: |
           npm install --force
