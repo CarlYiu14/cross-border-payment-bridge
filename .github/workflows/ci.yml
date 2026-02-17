@@ -18,22 +18,26 @@ jobs:
         with:
           node-version: '18.x'
 
-      - name: Force Clean and Install
+      - name: Install Hardhat and Dependencies
         run: |
-          rm -rf node_modules package-lock.json
+          npm install --save-dev hardhat
+          npm install @openzeppelin/contracts
           npm install
-          npm install @openzeppelin/contracts --save-dev
 
-      - name: Hardhat Compile
+      - name: Verify and Compile
         run: |
+          # Check if hardhat is available and purge cache
           npx hardhat clean
-          # Using --force ensures the compiler ignores old cache artifacts
+          # Force compilation ignoring any existing artifacts
           npx hardhat compile --force
 
       - name: Run Tests
-        # Only runs if the test directory exists; fails gracefully otherwise
         run: |
-          if [ -d "test" ]; then npx hardhat test; else echo "No tests found, skipping..."; fi
+          if [ -d "test" ]; then
+            npx hardhat test
+          else
+            echo "No test directory found. Compilation verified."
+          fi
 
   build-backend:
     name: Build Go Relayer
