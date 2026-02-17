@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"math/big"
 
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
@@ -55,7 +54,7 @@ func (bl *BridgeListener) Start(ctx context.Context) {
 func (bl *BridgeListener) handleLog(vLog types.Log) {
 	fmt.Printf("Received log in block: %d\n", vLog.BlockNumber)
 	fmt.Printf("Tx Hash: %s\n", vLog.TxHash.Hex())
-	
+
 	// TODO: Decode log data using ABI
 	// In production, we would use the generated Go bindings (abigen) here
 }
