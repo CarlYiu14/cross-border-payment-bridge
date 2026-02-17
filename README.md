@@ -1,58 +1,58 @@
-\# Decentralized Cross-Border Payment Bridge
+# Decentralized Cross-Border Payment Bridge
 
 
 
-\## Overview
+## Overview
 
-This repository contains the core infrastructure for a \*\*Decentralized Cross-Border Payment Bridge\*\*. The system is designed to facilitate secure, low-latency asset transfers between Ethereum-compatible networks (EVM).
+This repository contains the core infrastructure for a **Decentralized Cross-Border Payment Bridge**. The system is designed to facilitate secure, low-latency asset transfers between Ethereum-compatible networks (EVM).
 
 
 
 This project consists of two main components:
 
-1\.  \*\*Smart Contracts (Solidity):\*\* Handles the locking (custody) of assets on the source chain and the release of assets on the destination chain.
+1.  **Smart Contracts (Solidity):** Handles the locking (custody) of assets on the source chain and the release of assets on the destination chain.
 
-2\.  \*\*Relayer Service (Go):\*\* An off-chain backend service that monitors blockchain events and orchestrates the settlement on the destination network.
-
-
-
-\## Architecture
-
-The bridge utilizes a \*\*Lock-and-Release\*\* mechanism:
-
-\* \*\*Source Chain:\*\* User calls `deposit()`. Assets are locked in the contract.
-
-\* \*\*Off-Chain:\*\* The Go Relayer detects the `Deposit` event via WebSocket subscription.
-
-\* \*\*Destination Chain:\*\* After block confirmations, the Relayer calls `release()` to transfer equivalent assets to the user's wallet.
+2.  **Relayer Service (Go):** An off-chain backend service that monitors blockchain events and orchestrates the settlement on the destination network.
 
 
 
-\## Tech Stack
+## Architecture
 
-\* \*\*Smart Contracts:\*\* Solidity v0.8.20, OpenZeppelin (ReentrancyGuard, Ownable, SafeERC20).
+The bridge utilizes a **Lock-and-Release** mechanism:
 
-\* \*\*Backend:\*\* Go (Golang), go-ethereum (geth) for RPC interaction.
+* **Source Chain:** User calls `deposit()`. Assets are locked in the contract.
 
-\* \*\*Testing:\*\* Hardhat for contract unit tests.
+* **Off-Chain:** The Go Relayer detects the `Deposit` event via WebSocket subscription.
 
-
-
-\## Security Features
-
-\* \*\*Reentrancy Protection:\*\* All external state-changing functions are guarded with `nonReentrant`.
-
-\* \*\*Nonce Tracking:\*\* A unique nonce is generated for every deposit to prevent replay attacks on the destination chain.
-
-\* \*\*Role-Based Access:\*\* Only the authorized `Relayer` wallet can trigger the `release` function.
+* **Destination Chain:** After block confirmations, the Relayer calls `release()` to transfer equivalent assets to the user's wallet.
 
 
 
-\## Setup \& Installation
+## Tech Stack
+
+* **Smart Contracts:** Solidity v0.8.20, OpenZeppelin (ReentrancyGuard, Ownable, SafeERC20).
+
+* **Backend:** Go (Golang), go-ethereum (geth) for RPC interaction.
+
+* **Testing:** Hardhat for contract unit tests.
 
 
 
-\### Smart Contracts
+## Security Features
+
+* **Reentrancy Protection:** All external state-changing functions are guarded with `nonReentrant`.
+
+* **Nonce Tracking:** A unique nonce is generated for every deposit to prevent replay attacks on the destination chain.
+
+* **Role-Based Access:** Only the authorized `Relayer` wallet can trigger the `release` function.
+
+
+
+## Setup & Installation
+
+
+
+### Smart Contracts
 
 ```bash
 
