@@ -27,7 +27,7 @@ func main() {
 
 	// 3. Start Listener Service
 	bridgeListener := listener.NewBridgeListener(client, cfg.ContractAddress)
-	
+
 	// Graceful Shutdown Context
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
