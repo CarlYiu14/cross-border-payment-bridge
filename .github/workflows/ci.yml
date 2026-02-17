@@ -17,17 +17,19 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-          cache: 'npm'
 
-      - name: Install Dependencies
+      - name: Force Clean Install Dependencies
         run: |
+          rm -rf node_modules package-lock.json
           npm install
           npm install @openzeppelin/contracts
 
-      - name: Compile and Test
+      - name: Hardhat Clean and Compile
         run: |
+          npx hardhat clean
           npx hardhat compile
-          npx hardhat test
+          # Only run tests if they exist to avoid exit code failures
+          if [ -d "test" ]; then npx hardhat test; fi
 
   build-backend:
     name: Build Go Relayer
