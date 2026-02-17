@@ -1,0 +1,15 @@
+{
+  "name": "cross-border-payment-bridge",
+  "version": "1.0.0",
+  "description": "Decentralized cross-border payment bridge using Solidity and Go",
+  "main": "index.js",
+  "scripts": {
+    "test": "hardhat test"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@openzeppelin/contracts": "^5.0.0",
+    "dotenv": "^16.3.1",
+    "hardhat": "^2.19.0"
+  }
+}
