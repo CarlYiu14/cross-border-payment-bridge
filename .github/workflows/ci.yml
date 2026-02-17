@@ -18,18 +18,22 @@ jobs:
         with:
           node-version: '18.x'
 
-      - name: Force Clean Install Dependencies
+      - name: Force Clean and Install
         run: |
           rm -rf node_modules package-lock.json
           npm install
-          npm install @openzeppelin/contracts
+          npm install @openzeppelin/contracts --save-dev
 
-      - name: Hardhat Clean and Compile
+      - name: Hardhat Compile
         run: |
           npx hardhat clean
-          npx hardhat compile
-          # Only run tests if they exist to avoid exit code failures
-          if [ -d "test" ]; then npx hardhat test; fi
+          # Using --force ensures the compiler ignores old cache artifacts
+          npx hardhat compile --force
+
+      - name: Run Tests
+        # Only runs if the test directory exists; fails gracefully otherwise
+        run: |
+          if [ -d "test" ]; then npx hardhat test; else echo "No tests found, skipping..."; fi
 
   build-backend:
     name: Build Go Relayer
@@ -40,7 +44,7 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version: '1.21'
-      - name: Build
+      - name: Build Relayer
         run: |
           cd backend
           go mod tidy
